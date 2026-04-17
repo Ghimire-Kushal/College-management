@@ -1,0 +1,90 @@
+:root {
+    --primary: #2e7d32;   /* Green */
+    --secondary: #1565c0; /* Blue */
+    --dark: #1c1c1c;
+    --light: #f4f6f9;
+}
+
+/* Body */
+body {
+    background-color: var(--light);
+    font-family: Arial, sans-serif;
+}
+
+/* Navbar */
+.navbar {
+    background-color: var(--primary) !important;
+}
+
+/* Logo text */
+.navbar-brand {
+    color: white !important;
+    font-weight: bold;
+}
+
+/* Buttons */
+.btn-primary {
+    background-color: var(--primary);
+    border: none;
+}
+
+.btn-primary:hover {
+    background-color: #256428;
+}
+
+.btn-success {
+    background-color: var(--secondary);
+    border: none;
+}
+
+/* Cards */
+.card {
+    border-radius: 12px;
+    border: none;
+}
+
+/* Headings */
+h1, h2, h3 {
+    color: var(--secondary);
+}
+.card:hover {
+    transform: scale(1.03);
+    transition: 0.3s;
+}
+/* Center everything nicely */
+.table td, .table th {
+    vertical-align: middle;
+}
+
+/* Improve spacing */
+.btn-group {
+    gap: 6px;
+}
+
+/* Better button look */
+.btn-group .btn {
+    min-width: 100px;
+    border-radius: 6px;
+    font-weight: 500;
+}
+
+/* Active selected state */
+.btn-check:checked + .btn-outline-success {
+    background-color: #198754;
+    color: white;
+}
+
+.btn-check:checked + .btn-outline-danger {
+    background-color: #dc3545;
+    color: white;
+}
+
+/* Card polish */
+.card {
+    border-radius: 10px;
+}
+
+/* Remove hover completely */
+.table tbody tr:hover {
+    background-color: transparent !important;
+}
