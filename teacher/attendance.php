@@ -81,14 +81,11 @@ $students = $conn->query("SELECT * FROM students");
 
             <div class="text-end">
                 <button type="button" onclick="saveAttendance()" class="btn btn-success px-4">
-                    Save / Update Attendance
+                    Save /Update Attendance
                 </button>
             </div>
-
         </div>
-
     </form>
-
 </div>
 
 <script>
