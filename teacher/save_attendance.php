@@ -1,27 +1,57 @@
 <?php
 session_start();
 include("../config/db.php");
+include("../includes/navbar.php");
 
-$date = $_POST['date'];
+// ✅ Check request
+if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+    echo json_encode([
+        "status" => "error",
+        "message" => "Invalid request"
+    ]);
+    exit();
+}
 
-foreach ($_POST['status'] as $student_id => $status) {
+// ✅ Validate data
+$date = $_POST['date'] ?? null;
+$statuses = $_POST['status'] ?? null;
 
-    $check = $conn->query("SELECT * FROM attendance 
-                           WHERE student_id='$student_id' AND date='$date'");
+if (!$date || !$statuses) {
+    echo json_encode([
+        "status" => "error",
+        "message" => "Missing data"
+    ]);
+    exit();
+}
 
-    if ($check->num_rows > 0) {
+// ✅ Prepare statements
+$checkStmt = $conn->prepare("SELECT id FROM attendance WHERE student_id=? AND date=?");
+$updateStmt = $conn->prepare("UPDATE attendance SET status=? WHERE student_id=? AND date=?");
+$insertStmt = $conn->prepare("INSERT INTO attendance (student_id, date, status) VALUES (?, ?, ?)");
 
-        $conn->query("UPDATE attendance 
-                      SET status='$status' 
-                      WHERE student_id='$student_id' AND date='$date'");
+// ✅ Loop through students
+foreach ($statuses as $student_id => $status) {
+
+    // Check existing
+    $checkStmt->bind_param("is", $student_id, $date);
+    $checkStmt->execute();
+    $result = $checkStmt->get_result();
+
+    if ($result->num_rows > 0) {
+
+        // 🔁 UPDATE
+        $updateStmt->bind_param("sis", $status, $student_id, $date);
+        $updateStmt->execute();
 
     } else {
 
-        $conn->query("INSERT INTO attendance (student_id, date, status)
-                      VALUES ('$student_id', '$date', '$status')");
+        // ➕ INSERT
+        $insertStmt->bind_param("iss", $student_id, $date, $status);
+        $insertStmt->execute();
     }
 }
 
+// ✅ Success response
 echo json_encode([
     "status" => "success",
     "message" => "Attendance saved successfully!"

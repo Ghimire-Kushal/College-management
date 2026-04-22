@@ -1,4 +1,6 @@
+
 <?php
+
 session_start();
 
 // Check login & role
@@ -69,7 +71,7 @@ $user = $_SESSION['user'];
                 <p>View student submissions</p>
                 <a href="assignments.php" class="btn btn-primary">Open</a>
             </div>
-        </div>
+       
 
     </div>
 
