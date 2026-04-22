@@ -60,10 +60,9 @@ $result = $conn->query("SELECT * FROM students");
                     <td><?= $row['email']; ?></td>
                     <td><?= $row['course']; ?></td>
                     <td>
-                        <a href="edit_student.php?id=<?= $row['id']; ?>" 
-                           class="btn btn-warning btn-sm">
-                           Edit
-                        </a>
+                        <a href="edit_student.php?id=<?= $row['id']; ?>" class="btn btn-warning btn-sm">
+    Edit
+</a>
 
                         <a href="delete_student.php?id=<?= $row['id']; ?>" 
                            class="btn btn-danger btn-sm"
